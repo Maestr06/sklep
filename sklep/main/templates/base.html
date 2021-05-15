@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,9 @@
     <title>Document</title>
 </head>
 <body>
+    {% load static %}
+    <img src="{% static 'main//logogrey-border.svg' %}" alt="zdjęcie">
+
     {% block content %}
         {{m.title}}
     {% endblock %}
