@@ -10,7 +10,7 @@
 
 venv/*
 sklep/db.sqlite3
-sklep/main/static/*
+sklep/main/static/main/*
 sklep/main/__pycache__/*
 sklep/sklep/__pycache__/*
 sklep/manage.py
