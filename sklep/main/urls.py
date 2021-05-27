@@ -1,8 +1,9 @@
+from unicodedata import name
 from django.urls import path
 
-from .views import ListMoviesView, RegisterView
+from .views import HomeView, RegisterView
 
 urlpatterns = [
-    path('', ListMoviesView.as_view()),
-    path('register/', RegisterView.as_view()),
+    path('', HomeView.as_view(), name='home'),
+    path('register/', RegisterView.as_view(), name='register'),
 ]
