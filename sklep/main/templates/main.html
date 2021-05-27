@@ -23,8 +23,13 @@
         </form>
     </header>
     <main>
-        {% block content %}
-        {% endblock %}
+        <div>
+            <p>Hi! If you want to enjoy the best (amateur) movies, register below for unlimited access.</p>
+        </div>
+        <form action="register/" method="POST"> {% csrf_token %}
+            <label for="email">Input your email below</label>
+            <input type="email" name="email" id="email" placeholder="example@gmail.com">
+        </form>
     </main>
     <footer>
 
