@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
+from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponseRedirect
 
 from .models import Movie
 
 # Create your views here.
 
 class HomeView(View):
-
 
     def get(self, request):
         context = {}
@@ -17,12 +18,21 @@ class HomeView(View):
 class RegisterView(View):
     success_url = reverse_lazy('home')
 
+
     def post(self, request):
-        context = {'email': request.POST['email']}
+
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+
+
+    def get(self, request):
+        form = UserCreationForm()
+        context = {'email': request.GET['email'], 'form': form}
         return render(request, 'register.html', context)
 
-    # def get(self, request):
-    #     return render(request, self.success_url, {})
 
 # def list_movies(request, id):
 #     movies = Movie.objects.all()
