@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from .forms import RegisterForm
-from django.http import HttpResponseRedirect
+from .forms import CommentForm, RegisterForm
+from django.http import HttpResponseRedirect, response
 from django.contrib.auth import login, authenticate
 
-from .models import Movie
+from .models import Comment, Movie
 
 # Create your views here.
 
@@ -44,8 +44,23 @@ class MovieView(View):
 
     def get(self, request, movie_title):
         movie = Movie.objects.get(title=movie_title)
-        context = {'movie':movie}
+        comments = Comment.objects.filter(movie=movie.id).order_by('posted')
+        context = {'movie': movie, 'comments': comments}
         return render(request, 'main/movie.html', context)
+
+
+
+class AddCommentView(View):
+
+
+    def get(self, request, movie_title):
+
+        form = CommentForm(request.GET)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/movie/' + movie_title)
+        
 
 
 

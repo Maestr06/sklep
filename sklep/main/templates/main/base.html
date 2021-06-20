@@ -20,12 +20,12 @@
         </div>
         {% if user.is_authenticated %}
             {% block login %}
-            <form action="logout/">
+            <form action="/logout">
                 <button id="login-button" type="submit">Logout</button>
             </form>
             {% endblock %}
         {% else %}
-            <form action="login/">
+            <form action="/login">
                 <button id="login-button" type="submit">Login</button>
             </form>
         {% endif %}

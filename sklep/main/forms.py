@@ -1,4 +1,8 @@
-from django.forms import EmailField
+from django.forms.models import ModelForm
+from .models import Comment
+from django import forms
+from django.contrib.auth import models
+from django.forms import EmailField, fields
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -20,4 +24,12 @@ class RegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class CommentForm(ModelForm):
+
+
+    class Meta:
+        model = Comment
+        fields = ['user', 'movie', 'text']
 

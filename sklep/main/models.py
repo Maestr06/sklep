@@ -26,6 +26,7 @@ class Code(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     date_purchased = models.DateField(auto_now_add=True)
 
+
     def __str__(self):
         return self.movie.title
 
@@ -34,3 +35,7 @@ class Comment(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     posted = models.DateField(auto_now_add=True)
     text = models.TextField(max_length=100)
+
+
+    def __str__(self):
+        return self.movie.title

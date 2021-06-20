@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-
+{% load crispy_forms_tags %}
 <div class="movie">
     <a class="movie" href="/movie/{{ movie.title }}">
     <img class="posters" src="/media/{{ movie.poster }}">
@@ -17,12 +17,21 @@
 {% endif %}
 
 </p>
-
+<div class="comment-section">
 {% if user.is_authenticated %}
-    <form action="/{{ movie.title }}/addcomment/">
-        <input type="text" class="comment-form" placeholder="Your comment here...">
-        <button type="submit">Comment</button>
+    <form action="/movie/{{ movie.title }}/addcomment/" method="GET">
+        {{ form|crispy }}
+        <input type="submit" value="Comment">Comment</button>
     </form>
 {% endif %}
+{% for c in comments %}
+    <div class="usernamebox">
+        <p class="username">{{ c.user }}</p>
+        <div class="comment">
+            <p class="comment-text">{{ c.text }}</p>
+        </div>
+    </div>
+{% endfor %}
+</div>
 
 {% endblock %}
