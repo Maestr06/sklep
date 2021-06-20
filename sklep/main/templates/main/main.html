@@ -32,11 +32,13 @@
     </header>
     <main>
         {% if user.is_authenticated %}
-        <div id="filmy">
+        <div id="movies">
         {% for movie in movies1 %}
-            <div class="film">
-                <img class="posters" src="media/{{ movie.poster }}">
+            <div class="movie">
+                <a class="movie" href="/movie/{{ movie.title }}">
+                <img class="posters" src="/media/{{ movie.poster }}">
                 {{ movie.title }}
+                </a>
             </div>
         {% endfor %}
         </div>

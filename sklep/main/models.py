@@ -10,6 +10,7 @@ class Movie(models.Model):
     release = models.DateField(auto_now_add=True)
     poster = models.ImageField(default='placeholder.jpg')
     price = models.TextField(max_length=6, default='100zł')
+    description = models.TextField(max_length=250, blank=True)
 
     def __str__(self):
         return self.title
@@ -20,8 +21,16 @@ class Movie(models.Model):
 
 class Code(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    value = models.UUIDField(primary_key=True, 
-    unique_for_date=timedelta(days=30), default=uuid.uuid4, 
-    editable=False)
+    value = models.UUIDField(default=uuid.uuid4, unique=True)
     active_time = models.DurationField(default=timedelta(days=30))
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, editable=False)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    date_purchased = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.movie.title
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    posted = models.DateField(auto_now_add=True)
+    text = models.TextField(max_length=100)

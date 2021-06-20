@@ -16,11 +16,19 @@
 <body>
     <header>
         <div>
-            <a  href="/"><img id="main-logo" height="40rem" src="{% static 'main//logoblue-border.svg' %}" alt="VODery"></a>
+            <a href="/"><img id="main-logo" height="40rem" src="{% static 'main//logoblue-border.svg' %}" alt="VODery"></a>
         </div>
-        <form action="/login">
-            <button id="login-button" type="submit">Login</button>
-        </form>
+        {% if user.is_authenticated %}
+            {% block login %}
+            <form action="logout/">
+                <button id="login-button" type="submit">Logout</button>
+            </form>
+            {% endblock %}
+        {% else %}
+            <form action="login/">
+                <button id="login-button" type="submit">Login</button>
+            </form>
+        {% endif %}
     </header>
     <main>
         {% block content %}

@@ -11,6 +11,7 @@ from .models import Movie
 
 class HomeView(View):
 
+
     def get(self, request):
         movies = Movie.list_movies()
         context = {'movies1': movies}
@@ -18,6 +19,8 @@ class HomeView(View):
 
 
 class RegisterView(View):
+    '''class that takes care of POST/GET
+    requests at /register and provides a RegisterForm'''
     success_url = reverse_lazy('home')
 
 
@@ -34,6 +37,16 @@ class RegisterView(View):
         form = RegisterForm()
         context = {'form': form}
         return render(request, 'main/register.html', context)
+
+
+class MovieView(View):
+
+
+    def get(self, request, movie_title):
+        movie = Movie.objects.get(title=movie_title)
+        context = {'movie':movie}
+        return render(request, 'main/movie.html', context)
+
 
 
 

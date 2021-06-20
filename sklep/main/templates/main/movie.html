@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<div class="movie">
+    <a class="movie" href="/movie/{{ movie.title }}">
+    <img class="posters" src="/media/{{ movie.poster }}">
+    {{ movie.title }}
+    </a>
+</div>
+<p>Description:</p>
+<p class="movie-description">
+{% if movie.description == '' %}
+    No description for this particular movie at this time. We're sorry!
+{% else %}    
+    {{movie.description}}
+{% endif %}
+
+</p>
+
+{% if user.is_authenticated %}
+    <form action="/{{ movie.title }}/addcomment/">
+        <input type="text" class="comment-form" placeholder="Your comment here...">
+        <button type="submit">Comment</button>
+    </form>
+{% endif %}
+
+{% endblock %}
