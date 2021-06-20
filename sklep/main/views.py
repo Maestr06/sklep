@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from django.contrib.auth.forms import UserCreationForm
+from .forms import RegisterForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth import login, authenticate
 
 from .models import Movie
 
@@ -21,7 +22,7 @@ class RegisterView(View):
 
     def post(self, request):
 
-        form = UserCreationForm(request.POST)
+        form = RegisterForm(request.POST)
 
         if form.is_valid():
             form.save()
@@ -29,8 +30,8 @@ class RegisterView(View):
 
 
     def get(self, request):
-        form = UserCreationForm()
-        context = {'email': request.GET['email'], 'form': form}
+        form = RegisterForm()
+        context = {'form': form}
         return render(request, 'register.html', context)
 
 

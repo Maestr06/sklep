@@ -18,7 +18,7 @@
         <div>
             <a href="/"><img id="main-logo" height="40rem" src="{% static 'main//logoblue-border.svg' %}" alt="VODery"></a>
         </div>
-        <form action="login.html">
+        <form action="login/">
             <button id="login-button" type="submit">Login</button>
         </form>
     </header>
@@ -27,8 +27,7 @@
             <p>Hi! If you want to enjoy the best (amateur) movies, register below for unlimited access.</p>
         </div>
         <form action="register/" method="GET"> {% csrf_token %}
-            <label for="email">Input your email below</label>
-            <input type="email" name="email" id="email" placeholder="example@domain.com">
+            <button id="register-button" type="submit">Register</button>
         </form>
     </main>
     <footer>
