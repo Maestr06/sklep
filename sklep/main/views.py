@@ -13,7 +13,7 @@ class HomeView(View):
 
     def get(self, request):
         context = {}
-        return render(request, 'main.html', context)
+        return render(request, 'main/main.html', context)
 
 
 class RegisterView(View):
@@ -32,7 +32,11 @@ class RegisterView(View):
     def get(self, request):
         form = RegisterForm()
         context = {'form': form}
-        return render(request, 'register.html', context)
+        return render(request, 'main/register.html', context)
+
+
+
+
 
 
 # def list_movies(request, id):
