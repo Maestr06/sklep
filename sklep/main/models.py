@@ -8,13 +8,14 @@ from django.db.models.deletion import CASCADE
 class Movie(models.Model):
     title = models.CharField(max_length=250)
     release = models.DateField(auto_now_add=True)
-    poster = models.ImageField()
+    poster = models.ImageField(default='placeholder.jpg')
+    price = models.TextField(max_length=6, default='100zł')
 
     def __str__(self):
         return self.title
 
     def list_movies():
-        movies = Movie.objects.all().values_list('title', flat=True)
+        movies = Movie.objects.all()#.values_list('title', flat=True)
         return movies
 
 class Code(models.Model):

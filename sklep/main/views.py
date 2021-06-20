@@ -12,7 +12,8 @@ from .models import Movie
 class HomeView(View):
 
     def get(self, request):
-        context = {}
+        movies = Movie.list_movies()
+        context = {'movies1': movies}
         return render(request, 'main/main.html', context)
 
 

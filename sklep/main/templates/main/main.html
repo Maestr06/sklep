@@ -32,9 +32,14 @@
     </header>
     <main>
         {% if user.is_authenticated %}
-            {% block movies %}
-                
-            {% endblock %}
+        <div id="filmy">
+        {% for movie in movies1 %}
+            <div class="film">
+                <img class="posters" src="media/{{ movie.poster }}">
+                {{ movie.title }}
+            </div>
+        {% endfor %}
+        </div>
         {% else %}
         <div>
             <p>Hi! If you want to enjoy the best (amateur) movies, register below for unlimited access.</p>
