@@ -8,9 +8,14 @@ from django.db.models.deletion import CASCADE
 class Movie(models.Model):
     title = models.CharField(max_length=250)
     release = models.DateField(auto_now_add=True)
+    poster = models.ImageField()
 
     def __str__(self):
         return self.title
+
+    def list_movies():
+        movies = Movie.objects.all().values_list('title', flat=True)
+        return movies
 
 class Code(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -18,4 +23,4 @@ class Code(models.Model):
     unique_for_date=timedelta(days=30), default=uuid.uuid4, 
     editable=False)
     active_time = models.DurationField(default=timedelta(days=30))
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, editable=False)
