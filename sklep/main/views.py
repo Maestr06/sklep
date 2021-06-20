@@ -44,22 +44,29 @@ class MovieView(View):
 
     def get(self, request, movie_title):
         movie = Movie.objects.get(title=movie_title)
-        comments = Comment.objects.filter(movie=movie.id).order_by('posted')
-        context = {'movie': movie, 'comments': comments}
+        comments = Comment.objects.filter(movie=movie.id).order_by('-posted')
+        form = CommentForm()
+        context = {'movie': movie, 'comments': comments, 'form': form}
         return render(request, 'main/movie.html', context)
 
 
-
-class AddCommentView(View):
-
-
-    def get(self, request, movie_title):
-
-        form = CommentForm(request.GET)
-
+    def post(self, request, movie_title):
+        movie = Movie.objects.get(title=movie_title)
+        form = CommentForm(request.POST)
         if form.is_valid():
-            form.save()
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.movie = movie
+            obj.save()
+            # form = CommentForm()
+            # comments = Comment.objects.filter(movie=movie.id).order_by('-posted')
+            # context = {'movie': movie, 'comments': comments, 'form': form}
             return HttpResponseRedirect('/movie/' + movie_title)
+
+
+    
+         
+
         
 
 

@@ -1,8 +1,10 @@
+from django.db.models.fields import TextField
 from django.forms.models import ModelForm
 from .models import Comment
 from django import forms
+
 from django.contrib.auth import models
-from django.forms import EmailField, fields
+from django.forms import EmailField, fields, Textarea, widgets
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -27,9 +29,11 @@ class RegisterForm(UserCreationForm):
 
 
 class CommentForm(ModelForm):
-
-
     class Meta:
         model = Comment
-        fields = ['user', 'movie', 'text']
+        fields = ("text",)
+        labels = {
+            'text': '',
+        }
+        
 

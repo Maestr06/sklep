@@ -1,11 +1,11 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-{% load crispy_forms_tags %}
+
 <div class="movie">
     <a class="movie" href="/movie/{{ movie.title }}">
     <img class="posters" src="/media/{{ movie.poster }}">
-    {{ movie.title }}
+    <p>{{ movie.title }}</p>
     </a>
 </div>
 <p>Description:</p>
@@ -19,9 +19,11 @@
 </p>
 <div class="comment-section">
 {% if user.is_authenticated %}
-    <form action="/movie/{{ movie.title }}/addcomment/" method="GET">
+{% load crispy_forms_tags %}
+    <form action="/movie/{{ movie.title }}/" method="POST">
+        {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" value="Comment">Comment</button>
+        <input id="addcomment" type="submit" value="Comment">
     </form>
 {% endif %}
 {% for c in comments %}
