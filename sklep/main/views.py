@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from .forms import CommentForm, RegisterForm
+from .forms import CommentForm, UserCreationForm
 from django.http import HttpResponseRedirect, response
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, forms
+from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Comment, Movie
 
@@ -26,17 +28,28 @@ class RegisterView(View):
 
     def post(self, request):
 
-        form = RegisterForm(request.POST)
-
+        form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
             return HttpResponseRedirect('/')
+        else:
+            resp = ''
+            for i, j in form.errors.items():
+                resp += str(i) + str(j) + '\n'
+            print(form.error_messages)
+            return response.HttpResponse('<h1>'+resp+'</h1>')
+            
 
 
     def get(self, request):
-        form = RegisterForm()
+        form = UserCreationForm()
         context = {'form': form}
         return render(request, 'main/register.html', context)
+
+
+    
+
 
 
 class MovieView(View):
